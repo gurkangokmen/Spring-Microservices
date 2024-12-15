@@ -1,0 +1,48 @@
+version: '3.7'
+
+services:
+  currency-exchange-server:
+    image: unfaithful/mmv3-currency-exchange-server:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8001:8001"
+    networks:
+      - currency-network
+    depends_on:
+      - naming-server
+  
+  api-gateway:
+    image: unfaithful/mmv3-api-gateway:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8765:8765"
+    networks:
+      - currency-network
+    depends_on:
+      - naming-server
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://naming-server:8761/eureka
+
+      
+  currency-conversion-service:
+    image: unfaithful/mmv3-currency-conversion-service:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8100:8100"
+    networks:
+      - currency-network
+    depends_on:
+      - naming-server
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://naming-server:8761/eureka
+
+  naming-server:
+    image: unfaithful/mmv3-naming-server:0.0.1-SNAPSHOT
+    mem_limit: 700m
+    ports:
+      - "8761:8761"
+    networks:
+      - currency-network
+networks:
+  currency-network:
+    

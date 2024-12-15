@@ -1,0 +1,5 @@
+we learned how to build routes
+
+through the Eureka naming server
+
+and redirect all the requests through the API gateway.

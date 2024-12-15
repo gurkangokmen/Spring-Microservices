@@ -1,0 +1,7 @@
+In The Previous, we learned how to build routes
+
+through the Eureka naming server
+
+and redirect all the requests through the API gateway.
+
+Now, We learn how we can build custom routes.
