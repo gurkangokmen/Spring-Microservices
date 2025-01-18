@@ -5,13 +5,13 @@
     * [Config Server](#config-server)
     * [Repo](#repo)
 * [Connection between Microservices](#connection-between-microservices)
-    * [Setting Up Dynamic Port in the Response](#setting-up-dynamic-port-in-the-response)
-    * [Invoking CE from CCS using RestTemplate](#invoking-ce-from-ccs-using-resttemplate)
-    * [Invoking CE from CCS using FeignClient](#invoking-ce-from-ccs-using-feignclient)
+    * [Setting Up "Dynamic Port" in the Response](#setting-up-dynamic-port-in-the-response)
+    * [Invoking CE from CCS using "RestTemplate"](#invoking-ce-from-ccs-using-resttemplate)
+    * [Invoking CE from CCS using "FeignClient"](#invoking-ce-from-ccs-using-feignclient)
 * [Service Discovery](#service-discovery)
     * [Eureka Naming Server](#eureka-naming-server)
-        * [Feign + Eureka Client Steps](#feign--eureka-client-steps)
         * [EUREKA Server Steps](#eureka-server-steps)
+        * [EUREKA Client Steps (Eureka+Feign)](#feign--eureka-client-steps)
 * [Load Balancing](#load-balancing-eureka--feign)
 * [Api Gateway](#api-gateway)
     * [Setting Up Spring Api Gateway](#setting-up-spring-api-gateway)
@@ -324,7 +324,7 @@ public class NamingServerApplication {
 }
 ```
 
-#### Feign + Eureka Client Steps
+#### Feign + EUREKA Client Steps
 
 1-Add Dependencies
 
@@ -447,7 +447,7 @@ public class NamingServerApplication {
 }
 ```
 
-`Feign + Eureka Client`
+`Feign + Eureka Client (CCS)`
 
 1-Add Dependency
 ```xml
@@ -746,7 +746,7 @@ public class CircuitBreakerController {
     //@Retry(name = "default-sample-api", fallbackMethod = "hardcodedResponse")
     //@CircuitBreaker(name = "default", fallbackMethod = "hardcodedResponse")
 
-    // 10s => 10000 calls to the sampleApi (in 10s only 10000 calls are allowed)
+    // 10s => 2 calls to the sampleApi (in 10s only 10000 calls are allowed)
     @RateLimiter(name = "default")
 
     // Configure how many concurrent calls are allowed.

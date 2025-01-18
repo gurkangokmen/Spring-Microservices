@@ -215,26 +215,26 @@ good.morning.message=Goedemorgen
 
 ```java
 @GetMapping("/users")
-    public List<User> retrieveAllUsers() {
-        return service.findAll();
-    }
+public List<User> retrieveAllUsers() {
+    return service.findAll();
+}
 
-    // http://localhost:8080/users/
+// http://localhost:8080/users/
 
-    // EntityModel
-    // WebMvcLinkBuilder
-    @GetMapping("/users/{id}")
-    public EntityModel<User> retrieveUser(@PathVariable int id) {
-        User user = service.findOne(id);
+// EntityModel
+// WebMvcLinkBuilder
+@GetMapping("/users/{id}")
+public EntityModel<User> retrieveUser(@PathVariable int id) {
+    User user = service.findOne(id);
 
-        if (user==null){throw new UserNotFoundException("id-"+ id);}
+    if (user==null){throw new UserNotFoundException("id-"+ id);}
 
-        EntityModel<User> entityModel = EntityModel.of(user);
+    EntityModel<User> entityModel = EntityModel.of(user);
 
-        WebMvcLinkBuilder link = linkTo(methodOn(this.getClass()).retrieveAllUsers());
-        entityModel.add(link.withRel("all-users"));
-        return entityModel;
-    }
+    WebMvcLinkBuilder link = linkTo(methodOn(this.getClass()).retrieveAllUsers());
+    entityModel.add(link.withRel("all-users"));
+    return entityModel;
+}
 ```
 
 `http://localhost:8080/users/1`
